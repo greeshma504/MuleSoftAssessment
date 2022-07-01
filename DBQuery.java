@@ -8,8 +8,9 @@ import java.sql.ResultSet;
 
 
 public class DBQuery {
+	// DataBase Creation
 	public static void createNewDatabase(String fileName) {  
-		   
+		// SQLite connection string   
         String url = "jdbc:sqlite:C:/sqlite/" + fileName;  
    
         try {  
@@ -17,7 +18,7 @@ public class DBQuery {
             if (conn != null) {  
                 DatabaseMetaData meta = conn.getMetaData();  
                 System.out.println("The driver name is " + meta.getDriverName());  
-                System.out.println("A new database has been created.");  
+                System.out.println("A new database has been created.\n\n");  
             }  
    
         } catch (SQLException e) {  
@@ -25,16 +26,17 @@ public class DBQuery {
         }  
     }  
 	
+	// Table Creation
 	public static void createNewTable() {  
-        // SQLite connection string  
+          
         String url = "jdbc:sqlite:C://sqlite/MuleSoft.db";  
           
         // SQL statement for creating a new table  
         String sql =  "CREATE TABLE IF NOT EXISTS Movies (\n"  
                 + " id integer PRIMARY KEY,\n"  
                 + " movie_name text NOT NULL,\n"
-                + " actor text NOT NULL,\n"
-                + " actress text NOT NULL,\n"
+                + " actor text,\n"
+                + " actress text,\n"
                 + " year integer NOT NULL,\n"
                 + " director text NOT NULL\n"
                 + ");"; 
@@ -48,10 +50,12 @@ public class DBQuery {
         }  
     } 
 	
+	// Inserting Data into Table
 	public static void insert(int id, String movie_name, String actor, String actress, int year, String director) {  
 		
 		String url = "jdbc:sqlite:C://sqlite/MuleSoft.db";
 		
+		// SQL statement for inserting data into table
 		String sql = "INSERT INTO Movies(id, movie_name, actor, actress, year, director) VALUES(?,?,?,?,?,?)";  
    
         try{  
@@ -69,11 +73,12 @@ public class DBQuery {
         }  
     }
 	
-	
+	// Query to retrieve all rows from the table
 	public static void selectAll(){  
 		
 		String url = "jdbc:sqlite:C://sqlite/MuleSoft.db";  
 		
+		// SQL statement for retrieving data from the table
         String sql = "SELECT * FROM Movies";  
           
         try {  
@@ -94,11 +99,12 @@ public class DBQuery {
         }  
     }
 	
-	
+	// Query to select movies based on the actor's name
 	public static void selectQuery(){
 
 		String url = "jdbc:sqlite:C://sqlite/MuleSoft.db";  
 		
+		// SQL statement for retrieving data from the table based on actor name
         String sql = "SELECT * FROM Movies WHERE actor = 'NTR'";  
           
         try {  
@@ -121,6 +127,7 @@ public class DBQuery {
 	
   
     public static void main(String[] args) {  
+    	
         createNewDatabase("MuleSoft.db");
         
         createNewTable();
@@ -140,5 +147,6 @@ public class DBQuery {
         System.out.println("\n\n=====================================================\n\n");
         
         selectQuery();
+        
     } 
 }
